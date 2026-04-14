@@ -1,15 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-GZDG046B0L"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-M56NSDX133"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-GZDG046B0L');
+  gtag('config', 'G-M56NSDX133');
 </script>
   
 <!-- Meta Pixel Code -->
@@ -22,16 +23,17 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1171971131567865');
+fbq('init', '1932445587362971');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1171971131567865&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=1932445587362971&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>V-Portal Access</title>
+<title>Portal Member VIP</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -238,7 +240,7 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:30px;text-align:center
 }
 
 #member-counter h2 {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 700;
   color: #fff;
 }
@@ -247,13 +249,13 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:30px;text-align:center
   font-size: 48px;
   font-weight: 700;
   color: #ff0;
-  margin-top: 8px;
+  margin-top: 0px;
 }
 
 #member-counter p {
   color: #aaa;
   font-size: 14px;
-  margin-top: 8px;
+  margin-top: 0px;
 }
 </style>
 </head>
@@ -263,53 +265,73 @@ footer{border-top:1px solid rgba(255,255,255,.08);padding:30px;text-align:center
 <!-- 1 Logo -->
 <header>
 <div class="container nav" style="justify-content:center">
-<div class="logo">PROMO PASJACKPOT</div>
+<div class="logo">KOMUNITAS VIP</div>
 </div>
 </header>
 
-<div id="deposit-timer" style="background: #fdfae6; border: 2px dashed #b8860b; color: #333; padding: 5px; text-align: center; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border-radius: 8px; margin: 10px 0;">
+<div id="deposit-timer" style="background: #fdfae6; border: 2px dashed #b8860b; color: #333; padding: 10px; text-align: center; border-radius: 8px; margin: 10px 0;">
     <p style="margin: 0; font-size: 14px; font-weight: bold; color: #b8860b;">
-        🎉 KUOTA BONUS DEPOSIT 100% DIAMANKAN!
+        KUOTA VIP DIAMANKAN!
     </p>
     <p style="margin: 0px 0 5px 0; font-size: 12px; color: #666;">
-        Selesaikan pendaftaran & deposit sebelum masa berlaku berakhir:
+        Segera klaim sebelum masa berlaku berakhir:
     </p>
-    <div id="countdown-v2" style="font-size: 28px; font-weight: 900; color: #d9534f; font-variant-numeric: tabular-nums;">20:00</div>
+    <div style="font-size: 28px; font-weight: 900; color: #d9534f; display: flex; justify-content: center; align-items: baseline; letter-spacing: -1px;">
+        <span id="min-sec">19:59</span><span id="ms">.59</span>
+    </div>
 </div>
 
 <script>
-function startDepositTimer(duration, display) {
-    var timer = duration, minutes, seconds;
-    var interval = setInterval(function () {
-        minutes = parseInt(timer / 60, 10);
-        seconds = parseInt(timer % 60, 10);
+// Fungsi Timer Baru yang Bergerak Cepat (Milidetik)
+function startFastTimer(durationSeconds) {
+    let totalMs = durationSeconds * 1000;
+    let endTime = Date.now() + totalMs;
+    const displayMain = document.getElementById('min-sec');
+    const displayMs = document.getElementById('ms');
 
-        minutes = minutes < 10 ? "0" + minutes : minutes;
-        seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-
-        if (--timer < 0) {
-            // Kita set reset ke 15:00 lagi agar web tidak terlihat "mati" bagi user baru
-            timer = duration; 
+    function update() {
+        let remaining = endTime - Date.now();
+        if (remaining <= 0) {
+            endTime = Date.now() + totalMs; // Auto-reset
+            remaining = totalMs;
         }
-    }, 1000);
+
+        let m = Math.floor(remaining / 60000);
+        let s = Math.floor((remaining % 60000) / 1000);
+        let ms = Math.floor((remaining % 1000) / 10);
+
+        if(displayMain) displayMain.innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        if(displayMs) displayMs.innerText = `.${String(ms).padStart(2, '0')}`;
+        
+        requestAnimationFrame(update);
+    }
+    update();
 }
 
+// Jalankan semua fungsi saat window load
 window.onload = function () {
-    // 60 detik * 20 menit = 1200 detik. 
-    // Kita pakai 19:59 agar terlihat lebih urgent di detik pertama.
-    var twentyMinutes = 60 * 19 + 59, 
-        display = document.querySelector('#countdown-v2');
-    startDepositTimer(twentyMinutes, display);
+    startFastTimer(1199); // Memulai timer dari 19:59
+    
+    // Fungsi lainnya tetap berjalan
+    setInterval(showPopup, 4500);
+    setInterval(() => { 
+        const increase = Math.floor(Math.random() * 700) + 100; 
+        jackpotCurrent += increase; 
+        jackpotEl.textContent = formatRupiah(jackpotCurrent); 
+        jackpotEl.classList.add('glow'); 
+        setTimeout(()=>{ jackpotEl.classList.remove('glow'); },250); 
+    }, 500);
+    setInterval(updateMemberCount, 1000);
 };
+
+// ... sisa kode popup dan jackpot Anda di bawah sini ...
 </script>
-  
+
 <!-- 3 Hero Banner -->
 <section id="promo-banner">
 <div class="container">
 <div class="promo-banner">
-<img src="PSJ047.webp" fetchpriority="high" alt="Komunitas VIP" />
+<img src="Komunitas VIP.webp" fetchpriority="high" alt="Komunitas VIP" />
 </div>
 </div>
 </section>
@@ -317,66 +339,18 @@ window.onload = function () {
 <!-- 5 CTA Daftar -->
 <section class="cta-section">
 <div class="container" style="text-align:center">
-<a href="https://pasjackpotresmi46.xyz//home?register&ref=Bonus100" class="btn btn-green" target="_blank">DAFTAR SEKARANG</a>
+<a href="https://anggaleoputra.blogspot.com" class="btn btn-green" target="_blank">DAFTAR SEKARANG</a>
 </div>
-</section>
-
-<!-- 6 Member Counter -->
-<section id="member-counter">
-  <div class="container" style="text-align:center; color:white;">
-    <h2 style="margin:0px;padding:0px;font-size:18px">NEW MEMBER</h2>
-    <div id="member-count" style="margin:0px;padding:0px;font-size:24px; font-weight:700; color:#f3c76b;">0</div>
-    </div>
 </section>
 
 <!-- 7 Jackpot Counter -->
 <section id="jackpot-section" style="padding:5px 0">
 <div class="container" style="text-align:center">
-<h2 style="margin-bottom:5px;font-size:18px">PROGRESSIVE JACKPOT</h2>
-<div id="jackpot-value" style="font-size:32px;color:#f3c76b;font-weight:700">Rp 0</div>
+<h2 style="font-size:20px";margin-bottom:5px;>ASET HARI INI</h2>
+<div id="jackpot-value" style="font-size:24px;color:#f3c76b;font-weight:700">Rp 0</div>
 </div>
 </section>
-  
-<!-- 8 Testimoni -->
-<section id="testimonials">
-<div class="container">
-<div class="testimonial-wrap">
-<div class="testimonial-track">
-
-<div class="testimonial-card">
-<div class="stars">★★★★★</div>
-<div class="testimonial-text">Asli nggak nyangka, iseng depo 50rb, main pas istirahat kantor. Eh dapet petir x500 langsung pecah! WD 500ribu cair gak pake lama. Gila sih, adminnya gercep! haha</div>
-<div class="testimonial-meta"><span class="testimonial-name">Andi S4nz</span><span class="testimonial-location">Jakarta</span></div>
-</div>
-
-<div class="testimonial-card">
-<div class="stars">★★★★★</div>
-<div class="testimonial-text">Tadinya cuma coba2 krn liat iklan, depo 100rb buat ngisi waktu luang pas anak tidur. Eh, malah dikasih maxwin di mahjong. Alhamdulillah bsa buat nambah uang belanja sebulan. WD 900rb msuk rekening dalam 3 menit!</div>
-<div class="testimonial-meta"><span class="testimonial-name">Santi MamaMuda</span><span class="testimonial-location">Bandung</span></div>
-</div>
-
-<div class="testimonial-card">
-<div class="stars">★★★★★</div>
-<div class="testimonial-text">Jujur kemaren2 rungkad di tempat lain. Nyoba pindah kesini modal 50rb terakhir, gokil gak ampe sejam dapet sensasional melulu. WD 350rb!</div>
-<div class="testimonial-meta"><span class="testimonial-name">Yoga Pratama</span><span class="testimonial-location">Surabaya</span></div>
-</div>
-
-<div class="testimonial-card">
-<div class="stars">★★★★★</div>
-<div class="testimonial-text">Modal 100rb, niatnya cuma mau hiburan. Pas dapet scatter, petirnya keluar semua. Total cuan 400rb. mayan deh! he2.. </div>
-<div class="testimonial-meta"><span class="testimonial-name">Rudi Uban</span><span class="testimonial-location">Medan</span></div>
-</div>
-
-<div class="testimonial-card">
-<div class="stars">★★★★★</div>
-<div class="testimonial-text">Malming gak kmana2, modal 150rb main santai bet kecil, eh malah panen scatter. Cair 1jt bersih. mantap wkwkwk..</div>
-<div class="testimonial-meta"><span class="testimonial-name">Begeng 6okz</span><span class="testimonial-location">Makassar</span></div>
-</div>
-
-</div>
-</div>
-</div>
-</section>
+ 
   
 <!-- 9 Clear Section -->
 <section style="height:20px"></section>
@@ -385,7 +359,7 @@ window.onload = function () {
 <div id="activity-popup" class="activity-popup"></div>
 
 <!-- 11 Sticky CTA -->
-<a href="https://pasjackpotresmi46.xyz/home?register&ref=BonusVIP" 
+<a href="https://anggaleoputra.blogspot.com" 
    onclick="fbq('track', 'Lead', {value: 10000, currency: 'IDR'});"
    target="_blank" 
    style="position:fixed;left:0;right:0;bottom:0;background:linear-gradient(0deg,#105f0a,#29cc6b);color:#111;font-weight:700;text-align:center;padding:14px;z-index:9998;text-decoration:none">
@@ -452,5 +426,6 @@ setInterval(updateMemberCount, 1000);
 
 </script>
 
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"cbde39b8ba0c442d9ddc941b95486086","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 </html>
